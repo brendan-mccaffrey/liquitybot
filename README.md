@@ -1,5 +1,3 @@
-## TODO: WE SHOULD CHECK FOR WHEN UNISWAP IS MORE EXPENSIVE NOT LESS
-
 # [Redemption Arbitrage Bot](https://gitcoin.co/issue/liquity/beta/2/100025005)
 
 This project contains code to arbitrage the ETH/LUSD rates on Uniswap and the redemption rate on Liquity.  It is designed for the Kovan testnet, however this can be adapted by changing the addresses in constants.ts.
