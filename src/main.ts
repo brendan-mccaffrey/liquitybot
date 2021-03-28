@@ -56,11 +56,13 @@ async function main() {
 
                     // calcualte redemption fee
                     const defaultMaxRedemptionRate = (amount: Decimal) => Decimal.min(fees.redemptionRate(amount.div(total.debt)).add(constants.LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE), Decimal.ONE);
-                    const redemptionFeeLUSD = attemptedAmountLUSD.mul(defaultMaxRedemptionRate(attemptedAmountLUSD));
-                    const redeemedNetLUSD = attemptedAmountLUSD.sub(redemptionFeeLUSD);
-                    const redeemedNetETH = redeemedNetLUSD.div(Decimal.fromBigNumberString(chainlinkPrice.toString()));
+
+                    const redeemedETH = attemptedAmountLUSD.div(Decimal.fromBigNumberString(chainlinkPrice.toString()));
+                    const redemptionFeeETH = redeemedETH.mul(defaultMaxRedemptionRate(attemptedAmountLUSD));
+                    const redeemedNetETH = redeemedETH.sub(redemptionFeeETH);
+
                     const profit = BigNumber.from(redeemedNetETH.bigNumber).sub(ethStartAmount);
-                    console.log(`Initial: ${utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed LUSD After Fee: ${redeemedNetLUSD}; Redeemed ETH: ${redeemedNetETH}; Profit ETH: ${utils.formatEther(profit)} ETH`);
+                    console.log(`Initial: ${utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed: ${redeemedETH} ETH; Net Redeemed: ${redeemedNetETH} ETH; Profit: ${utils.formatEther(profit)} ETH`);
 
                     if (profit.gt(greatestProfit)) {
                         greatestProfit = profit;

@@ -72,11 +72,11 @@ function main() {
                     const attemptedAmountLUSD = lib_base_1.Decimal.fromBigNumberString(util_1.getUniswapOut(uniswapReserves["_reserve0"], uniswapReserves["_reserve1"], ethStartAmount).toString());
                     const uniswapResult = yield uniswapPool.populateTransaction.swap(ethers_1.BigNumber.from(0), attemptedAmountLUSD.bigNumber, constants.ARBITRAGE_CONTRACT_ADDRESS, [], { gasLimit: 700000 });
                     const defaultMaxRedemptionRate = (amount) => lib_base_1.Decimal.min(fees.redemptionRate(amount.div(total.debt)).add(constants.LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE), lib_base_1.Decimal.ONE);
-                    const redemptionFeeLUSD = attemptedAmountLUSD.mul(defaultMaxRedemptionRate(attemptedAmountLUSD));
-                    const redeemedNetLUSD = attemptedAmountLUSD.sub(redemptionFeeLUSD);
-                    const redeemedNetETH = redeemedNetLUSD.div(lib_base_1.Decimal.fromBigNumberString(chainlinkPrice.toString()));
+                    const redeemedETH = attemptedAmountLUSD.div(lib_base_1.Decimal.fromBigNumberString(chainlinkPrice.toString()));
+                    const redemptionFeeETH = redeemedETH.mul(defaultMaxRedemptionRate(attemptedAmountLUSD));
+                    const redeemedNetETH = redeemedETH.sub(redemptionFeeETH);
                     const profit = ethers_1.BigNumber.from(redeemedNetETH.bigNumber).sub(ethStartAmount);
-                    console.log(`Initial: ${ethers_1.utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed LUSD After Fee: ${redeemedNetLUSD}; Redeemed ETH: ${redeemedNetETH}; Profit ETH: ${ethers_1.utils.formatEther(profit)} ETH`);
+                    console.log(`Initial: ${ethers_1.utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed: ${redeemedETH} ETH; Net Redeemed: ${redeemedNetETH} ETH; Profit: ${ethers_1.utils.formatEther(profit)} ETH`);
                     if (profit.gt(greatestProfit)) {
                         greatestProfit = profit;
                         try {
