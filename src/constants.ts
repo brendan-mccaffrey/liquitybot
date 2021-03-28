@@ -3,14 +3,14 @@ import { Decimal } from "@liquity/lib-base";
 
 export const CHAINLINK_DECIMALS = 8;
 export const ONE_ETHER = BigNumber.from(10).pow(18);
+//ensure we get in first
+export const GAS_PRICE = BigNumber.from(10).pow(9).mul(15); // 15 gwei
 export const PROFITABILITY_MINIMUM = ONE_ETHER.div(100).mul(2); // 0.02 eth
 export const SWAP_AMOUNTS = [
-    // ONE_ETHER.div(4), // .25
     ONE_ETHER.div(3), // .3333
     ONE_ETHER.div(2), // 0.5
     ONE_ETHER.mul(1), // 1
     ONE_ETHER.mul(6).div(5), // 1.2
-    ONE_ETHER.mul(3).div(2), // 1.5
     ONE_ETHER.mul(2), // 2
 ];
 export const LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE = Decimal.from(0.001); // 0.1%

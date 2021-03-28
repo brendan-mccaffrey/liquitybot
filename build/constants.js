@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LIQUITY_TROVE_MANAGER_ABI = exports.LIQUITY_TROVE_MANAGER_ADDRESS = exports.ARBITRAGE_CONTRACT_ABI = exports.ARBITRAGE_CONTRACT_ADDRESS = exports.CHAINLINK_ABI = exports.CHAINLINK_ADDRESS = exports.UNISWAP_PAIR_ABI = exports.UNISWAP_PAIR_ADDRESS = exports.NULL_ADDRESS = exports.LIQUITY_MAX_ITERATIONS = exports.LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE = exports.SWAP_AMOUNTS = exports.PROFITABILITY_MINIMUM = exports.ONE_ETHER = exports.CHAINLINK_DECIMALS = void 0;
+exports.LIQUITY_TROVE_MANAGER_ABI = exports.LIQUITY_TROVE_MANAGER_ADDRESS = exports.ARBITRAGE_CONTRACT_ABI = exports.ARBITRAGE_CONTRACT_ADDRESS = exports.CHAINLINK_ABI = exports.CHAINLINK_ADDRESS = exports.UNISWAP_PAIR_ABI = exports.UNISWAP_PAIR_ADDRESS = exports.NULL_ADDRESS = exports.LIQUITY_MAX_ITERATIONS = exports.LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE = exports.SWAP_AMOUNTS = exports.PROFITABILITY_MINIMUM = exports.GAS_PRICE = exports.ONE_ETHER = exports.CHAINLINK_DECIMALS = void 0;
 const ethers_1 = require("ethers");
 const lib_base_1 = require("@liquity/lib-base");
 exports.CHAINLINK_DECIMALS = 8;
 exports.ONE_ETHER = ethers_1.BigNumber.from(10).pow(18);
+exports.GAS_PRICE = ethers_1.BigNumber.from(10).pow(9).mul(15);
 exports.PROFITABILITY_MINIMUM = exports.ONE_ETHER.div(100).mul(2);
 exports.SWAP_AMOUNTS = [
     exports.ONE_ETHER.div(3),
     exports.ONE_ETHER.div(2),
     exports.ONE_ETHER.mul(1),
     exports.ONE_ETHER.mul(6).div(5),
-    exports.ONE_ETHER.mul(3).div(2),
     exports.ONE_ETHER.mul(2),
 ];
 exports.LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE = lib_base_1.Decimal.from(0.001);

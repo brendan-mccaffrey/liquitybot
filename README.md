@@ -27,3 +27,10 @@ Once you have done that, you can run:
 ```
 $ ETHEREUM_PRIVATE_KEY=xxxx INFURA_KEY=xxxx npm start 
 ```
+
+## Example Transactions
+* [1 ETH -> 1.347690028871551156 ETH](https://kovan.etherscan.io/tx/0xbb670e2b63299afa3f30dadf1e9a747ae757fd3bc9a92e9ac777c906f84d1e88)
+* [1 ETH -> 1.110662296953595004 ETH](https://kovan.etherscan.io/tx/0x317c0f9e5cef7aabd0ec641291a0475a84b0b913dc90f393adad8e40dba5d180)
+* [1 ETH -> 1.087066932022935456 ETH](https://kovan.etherscan.io/tx/0x3ef08a6e071d46a825c6bc911768672b170e87be1c5e719fd6898afea1231230)
+* [0.5 ETH -> 0.558586330216837967 ETH](https://kovan.etherscan.io/tx/0x09eafaa27ed27ddb4583df7cdd1b32433beb4556c919e915a6a12d4744528bc5)
+* [0.5 ETH -> 0.557108222478151221 ETH](https://kovan.etherscan.io/tx/0xfe6518b36598a3f1467fd322edc3652a89d6cf282590d605b14083deb00eb53b)

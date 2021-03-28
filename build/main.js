@@ -74,7 +74,7 @@ function main() {
                     const defaultMaxRedemptionRate = (amount) => lib_base_1.Decimal.min(fees.redemptionRate(amount.div(total.debt)).add(constants.LIQUITY_DEFAULT_SLIPPAGE_TOLERANCE), lib_base_1.Decimal.ONE);
                     const redemptionFeeLUSD = attemptedAmountLUSD.mul(defaultMaxRedemptionRate(attemptedAmountLUSD));
                     const redeemedNetLUSD = attemptedAmountLUSD.sub(redemptionFeeLUSD);
-                    const redeemedNetETH = attemptedAmountLUSD.div(lib_base_1.Decimal.fromBigNumberString(chainlinkPrice.toString()));
+                    const redeemedNetETH = redeemedNetLUSD.div(lib_base_1.Decimal.fromBigNumberString(chainlinkPrice.toString()));
                     const profit = ethers_1.BigNumber.from(redeemedNetETH.bigNumber).sub(ethStartAmount);
                     console.log(`Initial: ${ethers_1.utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed LUSD After Fee: ${redeemedNetLUSD}; Redeemed ETH: ${redeemedNetETH}; Profit ETH: ${ethers_1.utils.formatEther(profit)} ETH`);
                     if (profit.gt(greatestProfit)) {
