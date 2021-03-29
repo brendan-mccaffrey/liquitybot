@@ -22,7 +22,9 @@ $ cp node_modules/@liquity/lib-ethers/deployments/default/kovan.json node_module
 
 before running the code.
 
-Once you have done that, you can run:
+Next, deploy `contracts/Execute.sol` from using Ethereum Remix.
+
+Once you have done that, you can run (using the private key of the address that deployed the contract):
 
 ```
 $ ETHEREUM_PRIVATE_KEY=xxxx INFURA_KEY=xxxx npm start 
