@@ -65,11 +65,14 @@ async function main() {
                     console.log(`Initial: ${utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed: ${redeemedETH} ETH; Net Redeemed: ${redeemedNetETH} ETH; Profit: ${utils.formatEther(profit)} ETH`);
 
                     if (profit.gt(greatestProfit)) {
-                        greatestProfit = profit;
                         // may fail if amount is too low so just silently error because it is not critical
                         try {
                             const redeemResult: any = await liquity.populate.redeemLUSD(attemptedAmountLUSD, undefined, { gasLimit: 700000 });
-                            profitTxData.set(profit.toString(), await arbitrageContract.populateTransaction.MakeCalls(ethStartAmount, [uniswapResult["data"], redeemResult["rawPopulatedTransaction"]["data"]], { gasLimit: 700000 }));
+                            // if we don't have a partial redemption
+                            if (redeemResult.attemptedLUSDAmount.eq(redeemResult.redeemableLUSDAmount)) {
+                                profitTxData.set(profit.toString(), await arbitrageContract.populateTransaction.MakeCalls(ethStartAmount, [uniswapResult["data"], redeemResult["rawPopulatedTransaction"]["data"]], { gasLimit: 700000 }));
+                                greatestProfit = profit;
+                            }
                         } catch {
                             return;
                         }

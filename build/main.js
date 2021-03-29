@@ -78,10 +78,12 @@ function main() {
                     const profit = ethers_1.BigNumber.from(redeemedNetETH.bigNumber).sub(ethStartAmount);
                     console.log(`Initial: ${ethers_1.utils.formatEther(ethStartAmount)} ETH; Uniswap Output: ${attemptedAmountLUSD} LUSD; Redeemed: ${redeemedETH} ETH; Net Redeemed: ${redeemedNetETH} ETH; Profit: ${ethers_1.utils.formatEther(profit)} ETH`);
                     if (profit.gt(greatestProfit)) {
-                        greatestProfit = profit;
                         try {
                             const redeemResult = yield liquity.populate.redeemLUSD(attemptedAmountLUSD, undefined, { gasLimit: 700000 });
-                            profitTxData.set(profit.toString(), yield arbitrageContract.populateTransaction.MakeCalls(ethStartAmount, [uniswapResult["data"], redeemResult["rawPopulatedTransaction"]["data"]], { gasLimit: 700000 }));
+                            if (redeemResult.attemptedLUSDAmount.eq(redeemResult.redeemableLUSDAmount)) {
+                                profitTxData.set(profit.toString(), yield arbitrageContract.populateTransaction.MakeCalls(ethStartAmount, [uniswapResult["data"], redeemResult["rawPopulatedTransaction"]["data"]], { gasLimit: 700000 }));
+                                greatestProfit = profit;
+                            }
                         }
                         catch (_a) {
                             return;
