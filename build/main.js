@@ -46,12 +46,10 @@ function main() {
             return;
         }
         const wallet = new ethers_1.Wallet(process_1.env.ETHEREUM_PRIVATE_KEY, provider);
-        const walletAddress = yield wallet.getAddress();
         const liquity = yield lib_ethers_1.EthersLiquity.connect(wallet);
         const chainlinkProxy = new ethers_1.Contract(constants.CHAINLINK_ADDRESS, constants.CHAINLINK_ABI, provider);
         const uniswapPool = new ethers_1.Contract(constants.UNISWAP_PAIR_ADDRESS, constants.UNISWAP_PAIR_ABI, provider);
         const arbitrageContract = new ethers_1.Contract(constants.ARBITRAGE_CONTRACT_ADDRESS, constants.ARBITRAGE_CONTRACT_ABI, provider);
-        const liquityTroveManager = new ethers_1.Contract(constants.LIQUITY_TROVE_MANAGER_ADDRESS, constants.LIQUITY_TROVE_MANAGER_ABI);
         const profitTxData = new Map();
         provider.on("block", (_) => __awaiter(this, void 0, void 0, function* () {
             const chainlinkPrice = (yield chainlinkProxy.functions.latestRoundData()).answer.mul(ethers_1.BigNumber.from(10).pow(18 - constants.CHAINLINK_DECIMALS));

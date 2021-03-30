@@ -18,12 +18,10 @@ async function main() {
     }
 
     const wallet = new Wallet(env.ETHEREUM_PRIVATE_KEY as string, provider);
-    const walletAddress = await wallet.getAddress();
     const liquity = await EthersLiquity.connect(wallet);
     const chainlinkProxy = new Contract(constants.CHAINLINK_ADDRESS, constants.CHAINLINK_ABI, provider);
     const uniswapPool = new Contract(constants.UNISWAP_PAIR_ADDRESS, constants.UNISWAP_PAIR_ABI, provider);
     const arbitrageContract = new Contract(constants.ARBITRAGE_CONTRACT_ADDRESS, constants.ARBITRAGE_CONTRACT_ABI, provider);
-    const liquityTroveManager = new Contract(constants.LIQUITY_TROVE_MANAGER_ADDRESS, constants.LIQUITY_TROVE_MANAGER_ABI);
     const profitTxData = new Map();
 
     provider.on("block", async (_) => {
