@@ -2,6 +2,12 @@
 
 This project contains code to arbitrage the ETH/LUSD rates on Uniswap and the redemption rate on Liquity.  It is designed for the Kovan testnet, however this can be adapted by changing the addresses in constants.ts.
 
+## Improvements
+I can now update this page as the competition has finished.  Since submitting, I have realized some improvements that could be made, notably:
+
+    * Add a function to withdraw the LUSD balance of the contract (redemptions can give LUSD as a gas refund or your calculations can be incorrect and lead to some residual LUSD).
+    * Instead of using low level Solidity calls, implement the TroveManager and UniswapPair interface types and use those.
+
 ## Design
 
 It works by querying prices from the Uniswap pair and the Chainlink oracle every block.  If LUSD is sufficiently cheaper on Uniswap, then the bot will calculate how much would get by swapping ETH for LUSD on Uniswap after slippage.  It will then pass the result of that calculation into redeemLUSD.  We then generate the transaction data from these actions and pass it to our arbitrager smart contract.  This smart contract will transfer the specified amount of WETH to Uniswap, execute the swap for LUSD, then redeem the LUSD through the TroveManager contract.  It will also revert if the balance after execution is lower than the balance before to ensure that we do not lose money (except  gas) even if we are frontrun or if our transaction is included late.
