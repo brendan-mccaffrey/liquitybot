@@ -28,6 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
 const ethers_1 = require("ethers");
 const process_1 = require("process");
 const constants = __importStar(require("./constants"));
@@ -36,23 +37,32 @@ const lib_base_1 = require("@liquity/lib-base");
 const util_1 = require("./util");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("Starting");
         if (!process_1.env.INFURA_KEY) {
             console.log("Please provide a key for Infura.");
             return;
         }
-        const provider = new ethers_1.providers.InfuraProvider("kovan", process_1.env.INFURA_KEY);
+        const provider = new ethers_1.providers.InfuraProvider("homestead", process_1.env.INFURA_KEY);
         if (!process_1.env.ETHEREUM_PRIVATE_KEY) {
             console.log("Please provide a private key environment variable as ETHEREUM_PRIVATE_KEY.");
             return;
         }
-        const wallet = new ethers_1.Wallet(process_1.env.ETHEREUM_PRIVATE_KEY, provider);
+        console.log("Creating wallet");
+        const wallet = new ethers_1.Wallet(process_1.env.ETHEREUM_PRIVATE_KEY).connect(provider);
+        console.log("Creating liquity client");
         const liquity = yield lib_ethers_1.EthersLiquity.connect(wallet);
+        console.log("Creating Chainlink proxy");
         const chainlinkProxy = new ethers_1.Contract(constants.CHAINLINK_ADDRESS, constants.CHAINLINK_ABI, provider);
+        console.log("Creating Uniswap pool");
         const uniswapPool = new ethers_1.Contract(constants.UNISWAP_PAIR_ADDRESS, constants.UNISWAP_PAIR_ABI, provider);
+        console.log("Creating contract");
         const arbitrageContract = new ethers_1.Contract(constants.ARBITRAGE_CONTRACT_ADDRESS, constants.ARBITRAGE_CONTRACT_ABI, provider);
         const profitTxData = new Map();
-        provider.on("block", (_) => __awaiter(this, void 0, void 0, function* () {
+        console.log("Beginning async process");
+        provider.once("block", (_) => __awaiter(this, void 0, void 0, function* () {
+            console.log("Querying price");
             const chainlinkPrice = (yield chainlinkProxy.functions.latestRoundData()).answer.mul(ethers_1.BigNumber.from(10).pow(18 - constants.CHAINLINK_DECIMALS));
+            console.log("Done querying price");
             const chainlinkDollarPrice = chainlinkPrice.div(ethers_1.BigNumber.from(10).pow(18));
             console.log(`Chainlink ETH price in USD: ${chainlinkDollarPrice.toString()}`);
             const uniswapReserves = yield uniswapPool.functions.getReserves();

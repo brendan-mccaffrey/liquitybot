@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import { Contract, providers, utils, Wallet, BigNumber } from "ethers";
 import { env } from "process";
 import * as constants from "./constants";
@@ -6,27 +8,36 @@ import { Decimal } from "@liquity/lib-base";
 import { getUniswapOut } from "./util";
 
 async function main() {
+    console.log("Starting");
     if (!env.INFURA_KEY) {
         console.log("Please provide a key for Infura.");
         return;
     }
-    const provider = new providers.InfuraProvider("kovan", env.INFURA_KEY as string);
+    const provider = new providers.InfuraProvider("homestead", env.INFURA_KEY);
+    // const provider = new providers.JsonRpcProvider("http://localhost:8545");
 
     if (!env.ETHEREUM_PRIVATE_KEY) {
         console.log("Please provide a private key environment variable as ETHEREUM_PRIVATE_KEY.");
         return;
     }
-
-    const wallet = new Wallet(env.ETHEREUM_PRIVATE_KEY as string, provider);
+    console.log("Creating wallet");
+    const wallet = new Wallet(env.ETHEREUM_PRIVATE_KEY).connect(provider);
+    console.log("Creating liquity client");
     const liquity = await EthersLiquity.connect(wallet);
+    console.log("Creating Chainlink proxy");
     const chainlinkProxy = new Contract(constants.CHAINLINK_ADDRESS, constants.CHAINLINK_ABI, provider);
+    console.log("Creating Uniswap pool");
     const uniswapPool = new Contract(constants.UNISWAP_PAIR_ADDRESS, constants.UNISWAP_PAIR_ABI, provider);
+    console.log("Creating contract");
     const arbitrageContract = new Contract(constants.ARBITRAGE_CONTRACT_ADDRESS, constants.ARBITRAGE_CONTRACT_ABI, provider);
     const profitTxData = new Map();
 
-    provider.on("block", async (_) => {
+    console.log("Beginning async process");
+    provider.on('block', async (_) => {
         // make chainlink price have 18 decimals
+        console.log("Querying price")
         const chainlinkPrice = (await chainlinkProxy.functions.latestRoundData()).answer.mul(BigNumber.from(10).pow(18 - constants.CHAINLINK_DECIMALS));
+        console.log("Done querying price");
         const chainlinkDollarPrice = chainlinkPrice.div(BigNumber.from(10).pow(18));
         console.log(`Chainlink ETH price in USD: ${chainlinkDollarPrice.toString()}`);
 
