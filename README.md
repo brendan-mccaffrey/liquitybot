@@ -42,3 +42,4 @@ $ ETHEREUM_PRIVATE_KEY=xxxx INFURA_KEY=xxxx npm start
 * [1 ETH -> 1.087066932022935456 ETH](https://kovan.etherscan.io/tx/0x3ef08a6e071d46a825c6bc911768672b170e87be1c5e719fd6898afea1231230)
 * [0.5 ETH -> 0.558586330216837967 ETH](https://kovan.etherscan.io/tx/0x09eafaa27ed27ddb4583df7cdd1b32433beb4556c919e915a6a12d4744528bc5)
 * [0.5 ETH -> 0.557108222478151221 ETH](https://kovan.etherscan.io/tx/0xfe6518b36598a3f1467fd322edc3652a89d6cf282590d605b14083deb00eb53b)
+# faulty-liquity-bot
