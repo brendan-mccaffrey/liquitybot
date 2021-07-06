@@ -346,7 +346,7 @@
     "safe-buffer": "^5.2.1",
     "safe-regex": "^2.1.1",
     "safer-buffer": "^2.1.2",
-    "sane": "^4.1.0",
+    "sane": "^5.0.0",
     "saxes": "^5.0.1",
     "scrypt-js": "^3.0.1",
     "semver": "^7.3.5",
