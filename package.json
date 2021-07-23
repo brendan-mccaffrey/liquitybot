@@ -106,7 +106,7 @@
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.3.6",
-    "eslint-scope": "^5.1.1",
+    "eslint-scope": "^6.0.0",
     "eslint-utils": "^3.0.0",
     "eslint-visitor-keys": "^2.1.0",
     "espree": "^7.3.1",
