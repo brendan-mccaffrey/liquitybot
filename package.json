@@ -392,7 +392,7 @@
     "text-table": "^0.2.0",
     "throat": "^6.0.1",
     "tmpl": "^1.0.4",
-    "to-fast-properties": "^3.0.1",
+    "to-fast-properties": "^4.0.0",
     "to-object-path": "^0.3.0",
     "to-regex": "^3.0.2",
     "to-regex-range": "^5.0.1",
