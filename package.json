@@ -247,7 +247,7 @@
     "jsprim": "^2.0.0",
     "kind-of": "^6.0.3",
     "kleur": "^4.1.4",
-    "leven": "^3.1.0",
+    "leven": "^4.0.0",
     "levn": "^0.4.1",
     "lines-and-columns": "^1.1.6",
     "locate-path": "^6.0.0",
