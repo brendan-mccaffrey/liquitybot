@@ -300,7 +300,7 @@
     "parse-json": "^5.2.0",
     "parse5": "^6.0.1",
     "pascalcase": "^1.0.0",
-    "path-exists": "^4.0.0",
+    "path-exists": "^5.0.0",
     "path-is-absolute": "^1.0.1",
     "path-key": "^4.0.0",
     "path-parse": "^1.0.7",
