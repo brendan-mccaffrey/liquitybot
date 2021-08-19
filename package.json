@@ -382,7 +382,7 @@
     "strip-bom": "^5.0.0",
     "strip-eof": "^1.0.0",
     "strip-final-newline": "^3.0.0",
-    "strip-json-comments": "^3.1.1",
+    "strip-json-comments": "^4.0.0",
     "supports-color": "^9.0.1",
     "supports-hyperlinks": "^2.2.0",
     "symbol-tree": "^3.2.4",
