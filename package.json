@@ -322,7 +322,7 @@
     "queue-microtask": "^1.2.3",
     "react-is": "^17.0.2",
     "read-pkg": "^6.0.0",
-    "read-pkg-up": "^8.0.0",
+    "read-package-up": "^11.0.0",
     "regex-not": "^1.0.2",
     "regexpp": "^3.2.0",
     "remove-trailing-separator": "^1.1.0",
